@@ -6,6 +6,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 
 import { getDatabase, ref, set } from 'firebase/database';
@@ -16,6 +17,7 @@ const oAuthServices = {
   GoogleAuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword,
+  signOut,
   getDatabase,
   ref,
   set,
