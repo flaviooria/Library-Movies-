@@ -39,7 +39,6 @@ const FormSearch = () => {
   const provider = useContext(UserProvider);
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setSearchValue(e.target.value);
   };
 

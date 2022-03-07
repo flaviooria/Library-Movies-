@@ -34,4 +34,8 @@ const singInWithGoogleProvider = async () => {
   return (await services.signInWithPopup(auth, googleProvider)).user;
 };
 
-export { singInUser, singUpUser, singInWithGoogleProvider };
+const singOutUser = async () => {
+  await services.signOut(auth);
+};
+
+export { singInUser, singUpUser, singInWithGoogleProvider, singOutUser };

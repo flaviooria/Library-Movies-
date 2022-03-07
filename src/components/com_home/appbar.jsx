@@ -1,7 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { singOutUser } from '../../auth/services_oauth';
 
 const NavBar = () => {
+  const navigate = useNavigate();
+
+  const singOut = async () => {
+    await singOutUser();
+    navigate('/', { replace: true });
+  };
+
   return (
     <nav className='navbar navbar-expand-lg navbar-light bg-success'>
       <div className='container-fluid'>
@@ -20,9 +28,13 @@ const NavBar = () => {
         <div className='collapse navbar-collapse' id='navbarNav'>
           <ul className='navbar-nav'>
             <li className='nav-item'>
-              <a className='nav-link active text-white' aria-current='page'>
+              <Link
+                to={'/home'}
+                className='nav-link active text-white'
+                aria-current='page'
+              >
                 Buscar
-              </a>
+              </Link>
             </li>
             <li className='nav-item'>
               <Link className='nav-link text-white' to='/favorites'>
@@ -31,7 +43,9 @@ const NavBar = () => {
             </li>
 
             <li className='nav-item'>
-              <a className='nav-link btn-logout text-white'>Cerrar Sesión</a>
+              <a className='nav-link btn-logout text-white' onClick={singOut}>
+                Cerrar Sesión
+              </a>
             </li>
           </ul>
         </div>

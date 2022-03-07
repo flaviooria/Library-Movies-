@@ -2,21 +2,19 @@
  * SERVICES
  **/
 
-//GET movies filter by genre
-async function getMoviesByFilterGenre(id_genre) {
+//GET movies favorites by user
+async function getMoviesFavorites(uid) {
   const data = await fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=06069c8357d1fbce87e5f4ca6c1cf844&with_genres=${id_genre}&include_adult=false&language=es-Es`
+    `https://playlist-creator-46da6-default-rtdb.europe-west1.firebasedatabase.app/users/${uid}/movies_list.json`
   );
 
   return data.json();
 }
 
-//GET user by id
-async function getUser(id_user) {
+//GET movies filter by genre
+async function getMoviesByFilterGenre(id_genre) {
   const data = await fetch(
-    'https://playlist-creator-46da6-default-rtdb.europe-west1.firebasedatabase.app/users/' +
-      id_user +
-      '.json'
+    `https://api.themoviedb.org/3/discover/movie?api_key=06069c8357d1fbce87e5f4ca6c1cf844&with_genres=${id_genre}&include_adult=false&language=es-Es`
   );
 
   return data.json();
@@ -53,13 +51,15 @@ async function insertMovieInFavorites(movieObject, id_user) {
   return data.json();
 }
 
-//GET movie by id
-async function getMovieById(id_movie) {
-  const url = `http://api.themoviedb.org/3/movie/${id_movie}?api_key=06069c8357d1fbce87e5f4ca6c1cf844&language=es-ES`;
+//DELETE, delete a movie from list in bd
+async function deleteMovieFromList(id_user, id_movie) {
+  const url = `https://playlist-creator-46da6-default-rtdb.europe-west1.firebasedatabase.app/users/${id_user}/movies_list/${id_movie}.json`;
 
-  const data = await fetch(url);
+  let data = await fetch(url, {
+    method: 'DELETE',
+  });
 
-  return data.json();
+  return data.status;
 }
 
 export {
@@ -67,5 +67,6 @@ export {
   getMoviesByFilterGenre,
   getMovieByTitle,
   insertMovieInFavorites,
-  getMovieById,
+  getMoviesFavorites,
+  deleteMovieFromList,
 };

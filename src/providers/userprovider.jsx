@@ -5,6 +5,8 @@ const UserProvider = createContext({
   addUser: (user) => {},
   movies: {},
   addMovies: () => {},
+  moviesFavorites: [],
+  addMoviesFavorites: () => {},
 });
 
 export { UserProvider };
