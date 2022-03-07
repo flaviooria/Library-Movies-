@@ -69,6 +69,7 @@ const Inputs = ({ handleCredentials, isRegister }) => {
 const FormAuth = () => {
   const provider = useContext(UserProvider);
   let navigate = useNavigate();
+  const storage = localStorage;
 
   const [credentials, setCredentials] = useState({
     name: '',

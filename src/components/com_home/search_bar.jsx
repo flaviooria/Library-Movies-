@@ -1,11 +1,20 @@
+import { useContext, useEffect, useState } from 'react';
 import useGenreMovie from '../../hooks/genres_movies_hooks';
+import {
+  getMoviesByFilterGenre,
+  getMovieByTitle,
+} from '../../services/movies_services';
 
-const DropDownGenre = ({ filter }) => {
+import { UserProvider } from '../../providers/userprovider';
+
+const DropDownGenre = ({ filter, idState }) => {
   const { genres } = filter;
 
   const handleChange = (e) => {
-    console.log(e.target);
-    console.log('cambio');
+    const id_genre = e.target.value;
+    if (id_genre !== '-1') {
+      idState(id_genre);
+    }
   };
 
   return (
@@ -26,9 +35,25 @@ const DropDownGenre = ({ filter }) => {
 };
 
 const FormSearch = () => {
+  const [searchValue, setSearchValue] = useState('');
+  const provider = useContext(UserProvider);
+
+  const handleChange = (e) => {
+    console.log(e.target.value);
+    setSearchValue(e.target.value);
+  };
+
+  useEffect(async () => {
+    if (searchValue !== '') {
+      const res = await getMovieByTitle(searchValue);
+      provider.addMovies(res);
+    }
+  }, [searchValue]);
+
   return (
     <form className='form-search' autoComplete='off'>
       <input
+        onChange={handleChange}
         className='form-control'
         id='input_search'
         type='search'
@@ -44,13 +69,23 @@ const FormSearch = () => {
 };
 
 const SearchBar = ({ filter }) => {
+  const provider = useContext(UserProvider);
+  const [id, setId] = useState('');
+
+  useEffect(async () => {
+    if (id !== '') {
+      const res = await getMoviesByFilterGenre(id);
+      provider.addMovies(res);
+    }
+  }, [id]);
+
   return (
     <section className='container-fluid mt-5 search-bar mb-5'>
       <div className='lead mb-3'>
         Busca todo lo que quieras y crea tu lista de peliculas favoritas !!!
       </div>
       <div className='container-search'>
-        <DropDownGenre filter={filter}></DropDownGenre>
+        <DropDownGenre filter={filter} idState={setId}></DropDownGenre>
         <FormSearch></FormSearch>
       </div>
     </section>

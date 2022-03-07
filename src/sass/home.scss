@@ -34,10 +34,12 @@ $btn-color: #9CC489;
     background-color: $btn-color;
 
     & .card {
+        padding: 10px;
         height: auto;
+        transition:all 1.5s ease-in-out;
 
         & .poster {
-            height: 160px;
+            height: 100%;
             object-fit: cover;
         }
 
@@ -54,6 +56,12 @@ $btn-color: #9CC489;
             -webkit-box-orient: vertical;
             overflow: hidden;
             /*si no se declara añade los ... pero muestra todo el texto*/
+        }
+
+        &:hover {
+            z-index: 99;
+            transform: scale(1.15);
+            cursor: pointer;
         }
     }
 }

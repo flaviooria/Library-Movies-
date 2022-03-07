@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
   return (
@@ -24,8 +25,11 @@ const NavBar = () => {
               </a>
             </li>
             <li className='nav-item'>
-              <a className='nav-link text-white'>Mi Biblioteca</a>
+              <Link className='nav-link text-white' to='/favorites'>
+                Mi Biblioteca
+              </Link>
             </li>
+
             <li className='nav-item'>
               <a className='nav-link btn-logout text-white'>Cerrar Sesión</a>
             </li>

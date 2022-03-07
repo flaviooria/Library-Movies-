@@ -7,6 +7,7 @@ import {
   signInWithPopup,
   createUserWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from 'firebase/auth';
 
 import { getDatabase, ref, set } from 'firebase/database';
@@ -21,6 +22,7 @@ const oAuthServices = {
   getDatabase,
   ref,
   set,
+  onAuthStateChanged,
 };
 
 const _firebaseConfig = {
